@@ -1,0 +1,44 @@
+[project]
+name = "hermes-weixin-voice"
+version = "0.1.0"
+description = "Bidirectional WeChat voice I/O for the Hermes agent (STT + TTS + iLink delivery analysis)"
+readme = "README.md"
+authors = [
+    { name = "UNlawrence", email = "107251472+UNlawrence@users.noreply.github.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "cryptography>=45.0.0",
+    "edge-tts>=7.2.8",
+    "faster-whisper>=1.0.0",
+    "httpx>=0.28.1",
+    "piper-tts>=1.4.0",
+    "pilk>=0.2.4",
+    "pydantic-settings>=2.14.1",
+]
+
+[project.scripts]
+hermes-voice = "hermes_voice:main"
+hermes-voice-doctor = "hermes_voice.doctor:main"
+hermes-voice-stt = "hermes_voice.stt:stt_main"
+hermes-voice-setup = "hermes_voice.setup_cli:main"
+
+[build-system]
+requires = ["uv_build>=0.11.15,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "hermes_voice"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "pytest-asyncio>=1.3.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+    "slow: marks tests as slow (model download / network round-trip)",
+]
